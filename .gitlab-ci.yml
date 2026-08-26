@@ -1,0 +1,11 @@
+image: docker:latest
+services:
+  - docker:dind
+
+stages:
+  - build
+
+build-job:
+  stage: build
+  script:
+    - docker build -t reimu-clicker .

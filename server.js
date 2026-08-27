@@ -4,6 +4,8 @@ const app = express();
 const port = 3000;
 
 app.use(express.json());
+// Servir arquivos estáticos da pasta "public"
+app.use(express.static('public'));
 
 // Banco de dados SQLite
 const db = new sqlite3.Database('./cookie.db');
@@ -81,7 +83,7 @@ app.get('/', (req, res) => {
       <p>Clique no Fumo pra adora-lo</p>
 
       <div class="fumo-container" onclick="patReimu()">
-        <img id="fumo" class="fumo-img" src="https://gifdb.com/images/high/reimu-fumo-touhou-bounce-00k88vd3664s626f.gif" alt="Reimu Fumo">
+        <img id="fumo" class="fumo-img" src="/reimu.png" alt="Reimu Fumo">
       </div>
 
       <br>

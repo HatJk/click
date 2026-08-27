@@ -118,4 +118,4 @@ app.get('/', (req, res) => {
 });
 
 // APIs para ler e atualizar progresso
-app.
+app.listen(port, () => console.log(`Rodando na porta ${port}`));

@@ -8,9 +8,22 @@ app.use(express.json());
 app.use(express.static('public'));
 
 // Banco de dados SQLite
-const db = new sqlite3.Database('./cookie.db');
+const path = require('path');
+const fs = require('fs');
+
+// Garante que a pasta /app/data exista
+const dataDir = path.join(__dirname, 'data');
+if (!fs.existsSync(dataDir)) {
+  fs.mkdirSync(dataDir, { recursive: true });
+}
+
+// Salva o banco dentro da pasta persistente
+const dbPath = path.join(dataDir, 'cookie.db');
+const db = new sqlite3.Database(dbPath);
 db.run("CREATE TABLE IF NOT EXISTS progress (id INTEGER PRIMARY KEY, clicks INTEGER)");
 db.run("INSERT OR IGNORE INTO progress (id, clicks) VALUES (1, 0)");
+
+
 
 // Interface HTML do Reimu Fumo Clicker com efeito Squish
 app.get('/', (req, res) => {

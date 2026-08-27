@@ -120,4 +120,20 @@ app.get('/', (req, res) => {
 });
 
 // APIs para ler e atualizar progresso
+app.get('/api/score', (req, res) => {
+  db.get("SELECT clicks FROM progress WHERE id = 1", (err, row) => {
+    if (err) return res.status(500).json({ error: err.message });
+    res.json(row || { clicks: 0 });
+  });
+});
+
+app.post('/api/click', (req, res) => {
+  db.run("UPDATE progress SET clicks = clicks + 1 WHERE id = 1", function(err) {
+    if (err) return res.status(500).json({ error: err.message });
+    db.get("SELECT clicks FROM progress WHERE id = 1", (err, row) => {
+      res.json(row || { clicks: 0 });
+    });
+  });
+});
+
 app.listen(port, () => console.log(`Rodando na porta ${port}`));
